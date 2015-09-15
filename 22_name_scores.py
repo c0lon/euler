@@ -7,7 +7,6 @@
 # answer = 871198282
 
 import sys
-from pprint import pprint
 
 ALPHA = {}
 i = 1

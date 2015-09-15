@@ -12,8 +12,6 @@
 # How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
 # answer = 171
 
-from pprint import pprint
-
 DAYS = [
     'Sunday',
     'Monday',

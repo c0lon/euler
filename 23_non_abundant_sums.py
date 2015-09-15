@@ -7,12 +7,42 @@
 # By mathematical analysis, it can be shown that all integers greater than 28123 can be written as the sum of two abundant numbers.
 
 # Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.
-# answer = 
+# answer = 4179871
 
-from pprint import pprint
+import sys
+import utils
 
-def non_abundant_sum():
-    return 0
+def is_abundant(x):
+    return sum(utils.factors(x, True)) > x
+
+def non_abundant_sum(n):
+    # generate abundant numbers
+    abundance = []
+    for x in range(n):
+        if is_abundant(x):
+            abundance.append(x)
+    abundance = sorted(list(set(abundance)))
+
+    abundant_sums = []
+    for i in range(len(abundance)):
+        for j in range(i, len(abundance)):
+            abundant_sums.append(
+                abundance[i] + abundance[j])
+    abundant_sums = sorted(list(set(abundant_sums)))
+    
+    index = 0
+    non_abundant_sums = []
+    for i in range(n+1):
+        if i == abundant_sums[index]:
+            index += 1
+        else:
+            non_abundant_sums.append(i)
+
+    return sum(non_abundant_sums)
 
 if __name__ == '__main__':
-    print(non_abundant_sum())
+    n = 28123
+    if len(sys.argv) == 2:
+        n = int(sys.argv[1])
+
+    print(non_abundant_sum(n))

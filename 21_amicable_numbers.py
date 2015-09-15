@@ -9,7 +9,6 @@
 # answer = 31626
 
 import sys
-from pprint import pprint
 
 def sum_factors(x):
     if x == 0:

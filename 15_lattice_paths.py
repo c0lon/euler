@@ -5,7 +5,6 @@
 # answer = 137846528820
 
 import sys
-from pprint import pprint
 
 '''def _lattice_paths(lattice, start, end, visited, routes):
     visited.append(start)
