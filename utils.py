@@ -22,3 +22,29 @@ def factors(x, proper=False):
         fs.remove(x)
 
     return list(fs)
+
+# return a list of all permutations of a range up to and including n
+# given an list, maps the numerical permutations to the list
+def permutations(n, obj=None):
+
+    # nested recursive function
+    def _permutations(curr, perms):
+        for i in range(n):
+            if i not in curr:
+                curr.append(i)
+
+                if len(curr) == n:
+                    perms.append([x for x in curr])
+                else:
+                    perms = _permutations(curr, perms)
+
+                curr.remove(i)
+
+        return perms
+
+    perms = _permutations([], [])
+
+    if obj:
+        pass
+
+    return perms
