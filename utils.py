@@ -2,6 +2,10 @@
 
 # a collection of utilities that are commonly used in project euler challenges
 
+import argparse
+import os.path
+import sys
+
 # given a positive integer, return all its factors
 def factors(x, proper=False):
     if x <= 0:
@@ -48,3 +52,18 @@ def permutations(n, obj=None):
         pass
 
     return perms
+
+# generate a new file
+if __name__ == '__main__':
+    arg_parser = argparse.ArgumentParser(description='generate a template file for a project euler challenge.')
+    arg_parser.add_argument('filename')
+    args = arg_parser.parse_args()
+
+    if os.path.exists(args.filename):
+        print('file <{}> already exists.'.format(args.filename))
+        overwrite = input('overwrite? [y/n] ')
+        if overwrite.lower()[0] == 'n':
+            sys.exit()
+
+    with open(args.filename, 'w+') as f:
+        f.write('')
