@@ -4,10 +4,8 @@
 # How many such routes are there through a 20×20 lattice?
 # answer = 137846528820
 
-# use backtracking
-
-from pprint import pprint
 import sys
+from pprint import pprint
 
 '''def _lattice_paths(lattice, start, end, visited, routes):
     visited.append(start)

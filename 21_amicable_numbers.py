@@ -8,8 +8,8 @@
 # Evaluate the sum of all the amicable numbers under 10000.
 # answer = 31626
 
-from pprint import pprint
 import sys
+from pprint import pprint
 
 def sum_factors(x):
     if x == 0:

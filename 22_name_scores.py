@@ -6,8 +6,8 @@
 # What is the total of all the name scores in the file?
 # answer = 871198282
 
-from pprint import pprint
 import sys
+from pprint import pprint
 
 ALPHA = {}
 i = 1

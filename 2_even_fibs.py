@@ -3,9 +3,11 @@
 # By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 # answer = 4613732
 
+import sys
+
 def sum_even_fibs(limit):
-	
 	f = [1, 1]
+
 	total = 0
 	while f[-1] < limit:
 		f.append(f[-1] + f[-2])
@@ -15,4 +17,8 @@ def sum_even_fibs(limit):
 	return total
 
 if __name__ == '__main__':
-	print(sum_even_fibs(4000000))
+    n = 4000000
+    if len(sys.argv) == 2:
+        n = int(sys.argv[1])
+
+	print(sum_even_fibs(n))

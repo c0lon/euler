@@ -3,8 +3,8 @@
 # What is the largest prime factor of the number 600851475143?
 # answer = 6857
 
-from pprint import pprint
 import sys
+from pprint import pprint
 
 def is_prime(x):
     if x < 2 or not x & 1:
