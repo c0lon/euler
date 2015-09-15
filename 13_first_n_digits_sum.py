@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
+# answer = 5537376230
 
 import sys
 

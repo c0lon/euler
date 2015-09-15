@@ -3,6 +3,7 @@
 # n_1 = n_0/2    (even)
 # n_1 = 3n_0 + 1 (odd)
 # Which starting number, under one million, produces the longest chain?
+# answer = 837799
 
 import sys
 

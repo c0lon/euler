@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # Find the maximum total from top to bottom of the triangle below:
+# answer = 1074
 
 import sys
 
