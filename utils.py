@@ -91,7 +91,6 @@ def permutations(n, obj=None):
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser(description='generate a template file for a project euler challenge.')
     arg_parser.add_argument('filename')
-    arg_parser.add_argument('-i', '--imports', nargs='+')
     arg_parser.add_argument('-m', '--method')
     arg_parser.add_argument('-v', '--variable')
     arg_parser.add_argument('-d', '--default')
@@ -118,13 +117,9 @@ if __name__ == '__main__':
                 f.write('# {}\n'.format(line.strip()))
         f.write('# answer = \n\n')
 
-        if args.imports:
-            for i in args.imports:
-                if i == 'pprint':
-                    f.write('from pprint import pprint\n')
-                else:
-                    f.write('import {}\n'.format(i))
+        f.write('import sys\n')
         f.write('import utils\n')
+        f.write('from pprint import pprint\n')
 
         if args.method:
             variable = args.variable if args.variable else ''
@@ -138,7 +133,6 @@ if __name__ == '__main__':
             else:
                 f.write('    n = {}\n'.format(args.default))
 
-        if args.imports and 'sys' in args.imports:
             f.write('    if len(sys.argv) == 2:\n')
             if args.variable:
                 f.write('        {} = int(sys.argv[1])\n'.format(args.variable))
@@ -146,5 +140,5 @@ if __name__ == '__main__':
                 f.write('        n = int(sys.argv[1])\n')
 
         if args.method:
-            variable = args.variable if args.variable else 'n'
+            variable = args.variable if args.variable else ''
             f.write('\n    print({}({}))'.format(args.method, variable))
