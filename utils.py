@@ -4,7 +4,41 @@
 
 import argparse
 import os.path
+import re
 import sys
+
+from bs4 import BeautifulSoup as bs
+import requests
+
+# return a list of primes up to n
+def primes(n):
+    if n < 2:
+        return []
+
+    if n == 2:
+        return [2]
+
+    xs = {}
+    for i in range(2, n+1):
+        xs[i] = False
+
+    ps = []
+
+    p = 2
+    pp = 0
+    while p != pp:
+        pp = p
+
+        for x in range(p, len(xs), p):
+            xs[x] = True
+
+        while xs[p]:
+            p += 1
+
+        if pp != p:
+            ps.append(pp)
+
+    return ps
 
 # given a positive integer, return all its factors
 def factors(x, proper=False):
@@ -57,13 +91,60 @@ def permutations(n, obj=None):
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser(description='generate a template file for a project euler challenge.')
     arg_parser.add_argument('filename')
+    arg_parser.add_argument('-i', '--imports', nargs='+')
+    arg_parser.add_argument('-m', '--method')
+    arg_parser.add_argument('-v', '--variable')
+    arg_parser.add_argument('-d', '--default')
     args = arg_parser.parse_args()
 
     if os.path.exists(args.filename):
         print('file <{}> already exists.'.format(args.filename))
         overwrite = input('overwrite? [y/n] ')
-        if overwrite.lower()[0] == 'n':
+        if 'y' not in overwrite.lower():
             sys.exit()
 
+    problem_number = re.match(r'(\d+)', args.filename).group(1)
+    problem_url = 'https://projecteuler.net/problem={}'.format(problem_number)
+    soup = bs(requests.get(problem_url).text, 'html5lib')
+    problem = soup('div', class_='problem_content')[0].text.strip()
+
     with open(args.filename, 'w+') as f:
-        f.write('')
+        f.write('#!/usr/bin/env python\n\n')
+
+        for line in problem.splitlines():
+            if not line.strip():
+                f.write('\n')
+            else:
+                f.write('# {}\n'.format(line.strip()))
+        f.write('# answer = \n\n')
+
+        if args.imports:
+            for i in args.imports:
+                if i == 'pprint':
+                    f.write('from pprint import pprint\n')
+                else:
+                    f.write('import {}\n'.format(i))
+        f.write('import utils\n')
+
+        if args.method:
+            variable = args.variable if args.variable else ''
+            f.write('\ndef {}({}):\n    return 0\n'.format(
+                args.method, variable))
+
+        f.write('\nif __name__ == \'__main__\':\n')
+        if args.default:
+            if args.variable:
+                f.write('    {} = {}\n'.format(args.variable, args.default))
+            else:
+                f.write('    n = {}\n'.format(args.default))
+
+        if args.imports and 'sys' in args.imports:
+            f.write('    if len(sys.argv) == 2:\n')
+            if args.variable:
+                f.write('        {} = int(sys.argv[1])\n'.format(args.variable))
+            else:
+                f.write('        n = int(sys.argv[1])\n')
+
+        if args.method:
+            variable = args.variable if args.variable else 'n'
+            f.write('\n    print({}({}))'.format(args.method, variable))
