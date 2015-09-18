@@ -135,10 +135,10 @@ if __name__ == '__main__':
 
             f.write('    if len(sys.argv) == 2:\n')
             if args.variable:
-                f.write('        {} = int(sys.argv[1])\n'.format(args.variable))
+                f.write('        {} = int(sys.argv[1])\n\n'.format(args.variable))
             else:
-                f.write('        n = int(sys.argv[1])\n')
+                f.write('        n = int(sys.argv[1])\n\n')
 
         if args.method:
             variable = args.variable if args.variable else ''
-            f.write('\n    print({}({}))'.format(args.method, variable))
+            f.write('    print({}({}))'.format(args.method, variable))
