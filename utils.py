@@ -63,15 +63,15 @@ def factors(x, proper=False):
 
 # return a list of all permutations of a range up to and including n
 # given an list, maps the numerical permutations to the list
-def permutations(n, obj=None):
+def permutations(start, end, obj=None):
 
     # nested recursive function
     def _permutations(curr, perms):
-        for i in range(n):
+        for i in range(start, end+1):
             if i not in curr:
                 curr.append(i)
 
-                if len(curr) == n:
+                if len(curr) == end - start + 1:
                     perms.append([x for x in curr])
                 else:
                     perms = _permutations(curr, perms)
