@@ -88,13 +88,13 @@ def permutations(start, end, obj=None):
     return perms
 
 # generate a new file
-if __name__ == '__main__':
+def new_file(args):
     arg_parser = argparse.ArgumentParser(description='generate a template file for a project euler challenge.')
     arg_parser.add_argument('filename')
     arg_parser.add_argument('-m', '--method')
     arg_parser.add_argument('-v', '--variable')
     arg_parser.add_argument('-d', '--default')
-    args = arg_parser.parse_args()
+    args = arg_parser.parse_args(args)
 
     if os.path.exists(args.filename):
         print('file <{}> already exists.'.format(args.filename))
@@ -142,3 +142,36 @@ if __name__ == '__main__':
         if args.method:
             variable = args.variable if args.variable else ''
             f.write('    print({}({}))'.format(args.method, variable))
+
+# generate a new file
+if __name__ == '__main__':
+    op = None
+    if len(sys.argv) >= 2:
+        op = sys.argv[1]
+
+    if op == 'new':
+        new_file(sys.argv[2:])
+
+    elif op == 'primes':
+        ps = primes(int(sys.argv[2]))
+        for p in ps:
+            print(p)
+
+        print('\nthere are {} primes <= {}'.format(len(ps), sys.argv[2]))
+
+    elif op == 'factors':
+        fs = factors(int(sys.argv[2]))
+        for f in fs:
+            print(f)
+
+        print('\n{} has {} factors'.format(sys.argv[2], len(fs)))
+
+    elif op == 'perms':
+        start = int(sys.argv[2])
+        end   = int(sys.argv[3])
+
+        ps = permutations(start, end)
+        for p in ps:
+            print(p)
+
+        print('\nthere are {} permutations for {} <= x <= {}'.format(len(ps), start, end))
