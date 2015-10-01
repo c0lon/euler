@@ -14,7 +14,7 @@ import utils
 from pprint import pprint
 
 def pandigital_products():
-    return 0
+    perms = utils.permutations(10, start=1)
 
 if __name__ == '__main__':
     print(pandigital_products())
