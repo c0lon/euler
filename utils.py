@@ -66,21 +66,22 @@ def factors(x, proper=False):
 def permutations(start, end, obj=None):
 
     # nested recursive function
-    def _permutations(curr, perms):
+    def _permutations(curr):
         for i in range(start, end+1):
             if i not in curr:
                 curr.append(i)
 
                 if len(curr) == end - start + 1:
-                    perms.append([x for x in curr])
+                    yield curr[:]
                 else:
-                    perms = _permutations(curr, perms)
+                    for _perm in _permutations(curr):
+                        yield _perm
 
                 curr.remove(i)
 
         return perms
 
-    perms = _permutations([], [])
+    perms = _permutations([])
 
     if obj:
         pass
@@ -171,7 +172,9 @@ if __name__ == '__main__':
         end   = int(sys.argv[3])
 
         ps = permutations(start, end)
+        count = 0
         for p in ps:
             print(p)
+            count += 1
 
-        print('\nthere are {} permutations for {} <= x <= {}'.format(len(ps), start, end))
+        print('\nthere are {} permutations for {} <= x <= {}'.format(count, start, end))    
