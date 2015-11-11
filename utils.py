@@ -72,16 +72,32 @@ def permutations(start, end, obj=None):
                 curr.append(i)
 
                 if len(curr) == end - start + 1:
+<<<<<<< HEAD
                     yield curr
                 else:
                     for perm in _permutations(curr):
                         yield perm
+=======
+                    yield curr[:]
+                else:
+                    for _perm in _permutations(curr):
+                        yield _perm
+>>>>>>> 5be01c8ed56bb71dde115a126c092248af2b738d
 
                 curr.remove(i)
 
     for perm in _permutations([]):
         yield perm
 
+<<<<<<< HEAD
+=======
+    perms = _permutations([])
+
+    if obj:
+        pass
+
+    return perms
+>>>>>>> 5be01c8ed56bb71dde115a126c092248af2b738d
 
 # generate a new file
 def new_file(args):
@@ -166,9 +182,19 @@ if __name__ == '__main__':
         start = int(sys.argv[2])
         end   = int(sys.argv[3])
 
+<<<<<<< HEAD
         count = 0
         for p in permutations(start, end):
             print(p)
             count += 1
 
         print('\nthere are {} permutations for {} <= x <= {}'.format(count, start, end))
+=======
+        ps = permutations(start, end)
+        count = 0
+        for p in ps:
+            print(p)
+            count += 1
+
+        print('\nthere are {} permutations for {} <= x <= {}'.format(count, start, end))    
+>>>>>>> 5be01c8ed56bb71dde115a126c092248af2b738d
